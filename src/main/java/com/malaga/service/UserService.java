@@ -2,15 +2,10 @@ package com.malaga.service;
 
 import java.util.List;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+
 import com.malaga.dto.UserDTO;
 import com.malaga.exceptions.AdministratorException;
-
-/**
- * User Service
- * 
- * @author Daniel González Ortegón
- * @date 11/10/2019
- */
 
 public interface UserService {
 
@@ -22,6 +17,7 @@ public interface UserService {
 	 * @return List of users
 	 * @throws AdministratorException
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<UserDTO> findAll() throws AdministratorException;
 
 	/**
@@ -33,6 +29,7 @@ public interface UserService {
 	 * @throws AdministratorException
 	 */
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public UserDTO create(UserDTO user) throws AdministratorException;
 
 	/**
@@ -42,6 +39,7 @@ public interface UserService {
 	 * @return user Updated
 	 * @throws AdministratorException
 	 */
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public UserDTO update(UserDTO user) throws AdministratorException;
 
 	/**
@@ -52,6 +50,7 @@ public interface UserService {
 	 * @return
 	 * @throws AdministratorException
 	 */
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public UserDTO findByUsername(String idUser) throws AdministratorException;
 
 	/**
@@ -60,6 +59,7 @@ public interface UserService {
 	 * @param user to be deleted
 	 * @throws AdministratorException
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void delete(UserDTO user) throws AdministratorException;
 
 }
