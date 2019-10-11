@@ -43,12 +43,11 @@ public class AdministratorApplication {
 
 			while (command != null && !command.equals(ConstantsAdmin.EXIT)) {
 				command = scanner.nextLine();
-				log.info("Command: " + command);
+				log.debug("Command: " + command);
 				String args[] = command.split(" ");
 				
 				if(commands.validateCommand(args)) {
 					log.info(commands.executeCommand(args));
-					log.info("\n");
 				}
 			}
 		}

@@ -13,7 +13,7 @@ public final class ValidatorUtils {
 		case ConstantsAdmin.FIELD_EMAIL:
 			return validarEmail(value);
 		case ConstantsAdmin.FIELD_IBAN:
-			return validarTexto(value, 50);
+			return validarIBAN(value);
 
 		default:
 			return true;
@@ -39,12 +39,26 @@ public final class ValidatorUtils {
 		return resul;
 	}
 
+	public static boolean validarIBAN(String campo) {
+		boolean resul = true;
+		if (null != campo) {
+			Pattern pattern = Pattern.compile("^[A-Z]{2}(?:[ ]?[0-9]){18,20}$");
+			resul = pattern.matcher(campo).matches();
+		}
+		return resul;
+	}
+
+	/**
+	 * Utility to parse from String to JsonElement
+	 * 
+	 * @param user
+	 * @return
+	 */
 	public static JsonElement parserStringToDTO(String user) {
 
 		JsonParser parser = new JsonParser();
-		JsonElement json = parser.parse(user);
 
-		return json;
+		return parser.parse(user);
 
 	}
 

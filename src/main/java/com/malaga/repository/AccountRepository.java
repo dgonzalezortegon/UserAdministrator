@@ -15,11 +15,11 @@ import com.malaga.entity.User;
  */
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
-	
-	
+
 	public List<Account> findAllByUser(User id);
-	
-	
+
 	public List<Account> findAllByUserId(Long id);
+
+	public List<Account> findAllByUserUsername(String name);
 
 }

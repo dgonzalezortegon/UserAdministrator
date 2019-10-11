@@ -20,6 +20,7 @@ public class AuthServiceImpl implements AuthService {
 
 			SecurityContext sc = SecurityContextHolder.getContext();
 			sc.setAuthentication(authReq);
+			passOk = isAuthenticated(user);
 		}
 		return passOk;
 	}
