@@ -1,0 +1,30 @@
+# Configure Spring
+spring:
+  profiles: local
+  application:
+    name: administrator-backoffice
+  jackson:
+    default-property-inclusion: NON_NULL
+  jpa:
+    show_sql: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+        ddl-auto: auto
+        jdbc:
+          lob:
+            non_contextual_creation: true
+    
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: dani
+
+   
+# Configure log
+logging:
+  level:
+    root: INFO
+    com.malaga: DEBUG

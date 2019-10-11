@@ -1,0 +1,24 @@
+# Configure H2 database
+spring:
+  profiles: test
+  h2:
+    console:
+      enabled: true  
+  
+  datasource:
+    name: administrator-test
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;
+    username: sa
+    password: sa
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+     
+
+# Configure log
+logging:
+  level:
+    root: INFO
+    com.malaga: DEBUG
