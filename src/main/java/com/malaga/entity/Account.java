@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +37,7 @@ public class Account implements Serializable {
 	private Long id;
 
 	@ManyToOne
-	@JoinColumn(name = "user", nullable = false)
+	@JoinColumn(referencedColumnName="id", nullable = false , foreignKey = @ForeignKey(name = "FK_ACCOUNT_TO_USER_ID"))
 	private User user;
 
 	@Column(name = "iban", nullable = false, unique = true)
