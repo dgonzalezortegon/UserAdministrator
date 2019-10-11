@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.malaga.dto.UserDTO;
+import com.malaga.entity.User;
 import com.malaga.exceptions.AdministratorException;
 import com.malaga.mapper.UserMapper;
 import com.malaga.repository.UserDetailsRepository;
@@ -30,12 +31,19 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO create(UserDTO user) throws AdministratorException {
+		if(user==null) {
+			 throw new  AdministratorException("User no well formed");
+		}
 		return mapperUser.toDTO(userRepository.save(mapperUser.toModel(user)));
 	}
 
 	@Override
 	public UserDTO update(UserDTO user) throws AdministratorException {
-		return mapperUser.toDTO(userRepository.save(mapperUser.toModel(user)));
+		User u = userRepository.findByUsername(user.getUsername());
+		u.setEmail(user.getEmail());
+		u.setLastname(user.getLastname());
+
+		return mapperUser.toDTO(userRepository.save(u));
 	}
 
 	@Override
@@ -45,7 +53,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void delete(UserDTO user) throws AdministratorException {
-		userRepository.delete(mapperUser.toModel(user));
+
+		userRepository.delete(userRepository.findOne(user.getId()));
 
 	}
 

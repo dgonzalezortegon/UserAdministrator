@@ -6,6 +6,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.malaga.constants.ConstantsAdmin;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public final class ValidatorUtils {
 
 	public static boolean validaCampo(String campo, String value) {
@@ -57,9 +60,16 @@ public final class ValidatorUtils {
 	public static JsonElement parserStringToDTO(String user) {
 
 		JsonParser parser = new JsonParser();
+		JsonElement ele = null;
+		try {
+			ele = parser.parse(user);
+		} catch (Exception e) {
 
-		return parser.parse(user);
+			log.error(e.getMessage());
 
+		}
+
+		return ele;
 	}
 
 }

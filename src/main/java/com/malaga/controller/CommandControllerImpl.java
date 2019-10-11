@@ -2,7 +2,12 @@ package com.malaga.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Controller;
 
 import com.google.gson.Gson;
@@ -46,8 +51,7 @@ public class CommandControllerImpl {
 	}
 
 	public boolean login(String user, String pass) {
-
-		log.info("Login\n");
+		log.debug("Login");
 		return authService.authenticated(user, pass);
 	}
 
@@ -93,6 +97,9 @@ public class CommandControllerImpl {
 	 * @throws AdministratorException
 	 */
 	public UserDTO findByUsername(String idUser) throws AdministratorException {
+		if (!authService.isAuthenticated(idUser)) {
+			throw new AccessDeniedException("Access Denied");
+		}
 		return userService.findByUsername(idUser);
 	}
 
@@ -102,9 +109,13 @@ public class CommandControllerImpl {
 	 * @param user
 	 * @throws AdministratorException
 	 */
+	@Transactional
 	public void delete(String idUser) throws AdministratorException {
 
 		UserDTO user = userService.findByUsername(idUser);
+		
+		accountService.deleteAccount(user.getId());
+		
 		userService.delete(user);
 
 	}
@@ -148,7 +159,7 @@ public class CommandControllerImpl {
 				result = create(args[1]).toString();
 				break;
 			case ConstantsAdmin.UPDATE_USER:
-				update(args[1]);
+				update(args[2]);
 				result = "updated";
 				break;
 			case ConstantsAdmin.GET_USER:
@@ -171,15 +182,16 @@ public class CommandControllerImpl {
 				break;
 			}
 
-		} catch (Exception e) {
+		} catch (BadCredentialsException | AccessDeniedException e) {
+			result = e.getMessage();
 
+		} catch (AuthenticationCredentialsNotFoundException e) {
+			result = "User No Authenticated";
+		} catch (AdministratorException e) {
 			log.error(e.getMessage());
-			log.error("Error {} \n", args[0]);
-			result = "Error ";
-
 		}
 
-		return result + "\n";
+		return result;
 
 	}
 
@@ -193,13 +205,43 @@ public class CommandControllerImpl {
 
 		Boolean result = true;
 		try {
+
 			switch (args[0]) {
 			case ConstantsAdmin.AUTH:
 				if (args.length != 3) {
 					log.error("No Valid LOGIN,   login user pass");
 					result = false;
 				}
-
+				break;
+			case ConstantsAdmin.GET_USER:
+				if (args.length != 2) {
+					log.error(ConstantsAdmin.FORMAT_GET_USER);
+					result = false;
+				}
+				break;
+			case ConstantsAdmin.CREATE_ACCOUNT:
+				if (args.length != 3) {
+					log.error(ConstantsAdmin.FORMAT_CREATE_ACCOUNT);
+					result = false;
+				}
+				break;
+			case ConstantsAdmin.CREATE_USER:
+				if (args.length != 2) {
+					log.error(ConstantsAdmin.FORMAT_CREATE_USER);
+					result = false;
+				}
+				break;
+			case ConstantsAdmin.DELETE_USER:
+				if (args.length != 2) {
+					log.error(ConstantsAdmin.FORMAT_DELETE_USER);
+					result = false;
+				}
+				break;
+			case ConstantsAdmin.UPDATE_USER:
+				if (args.length != 3) {
+					log.error(ConstantsAdmin.FORMAT_UPDATE_USER);
+					result = false;
+				}
 				break;
 			case ConstantsAdmin.EXIT:
 				result = false;

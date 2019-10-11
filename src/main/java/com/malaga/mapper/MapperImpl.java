@@ -30,6 +30,8 @@ public abstract class MapperImpl<M, D> implements Mapper<M, D> {
 
 	@Override
 	public M toModel(D d) {
+		if (d == null)
+			return null;
 		return mapper.map(d, modelClass);
 	}
 

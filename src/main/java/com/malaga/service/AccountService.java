@@ -31,4 +31,13 @@ public interface AccountService {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public AccountDTO createAccount(String user, String iban) throws AdministratorException;
 
+	/**
+	 * Delete Accounts
+	 * 
+	 * @param username
+	 * @throws AdministratorException
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	void deleteAccount(Long username) throws AdministratorException;
+
 }

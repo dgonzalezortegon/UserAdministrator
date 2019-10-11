@@ -41,26 +41,46 @@ public class AdministratorApplication {
 
 			log.info(ConstantsAdmin.WELCOME);
 
-			while (command != null && !command.equals(ConstantsAdmin.EXIT)) {
+			while (!command.equals(ConstantsAdmin.EXIT)) {
+
 				command = scanner.nextLine();
-				log.debug("Command: " + command);
+
 				String args[] = command.split(" ");
-				
-				if(commands.validateCommand(args)) {
-					log.info(commands.executeCommand(args));
+
+				if (isValid(args)) {
+										
+					if (commands.validateCommand(args)) {
+						log.info(commands.executeCommand(args));
+					}
 				}
+
 			}
 		}
-		
 
 		log.info(ConstantsAdmin.BYE);
 
 		System.exit(0);
+
 	}
 
 	@Bean
 	public DozerBeanMapper mapper() {
 		return new DozerBeanMapper();
+	}
+
+	private static boolean isValid(String[] args) {
+		boolean valid = true;
+		if (args != null && args.length == 0) {
+			valid = false;
+		}
+		if (args != null && args.length == 1) {
+			if(args[0].equals(System.lineSeparator()) || args[0].equals("")) {
+		
+			valid = false;
+			}
+		}
+		return valid;
+
 	}
 
 }

@@ -40,5 +40,18 @@ public class AccountServiceImpl implements AccountService {
 		account.setIban(iban);
 		return maper.toDTO(accountRepo.save(account));
 	}
+	
+	@Override
+	public void deleteAccount(Long idUsername) throws AdministratorException {
+
+		List<Account> cuentas = accountRepo.findAllByUserId(idUsername);
+		
+		for(Account ccc : cuentas) {
+			accountRepo.delete(ccc);
+		}
+		
+	}
+	
+	
 
 }

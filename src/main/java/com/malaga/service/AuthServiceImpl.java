@@ -5,24 +5,34 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.malaga.constants.ConstantsAdmin;
+
 @Service
 public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public boolean authenticated(String user, String pass) {
 
-		boolean passOk = true;
+		boolean passOk = false;
 		// Contrast password from DB
 
-		if (pass != null && passOk) {
+		if (pass != null && pass.equals(getPass(user))) {
 
 			UsernamePasswordAuthenticationToken authReq = new UsernamePasswordAuthenticationToken(user, pass);
 
 			SecurityContext sc = SecurityContextHolder.getContext();
+
 			sc.setAuthentication(authReq);
 			passOk = isAuthenticated(user);
 		}
 		return passOk;
+	}
+
+	public String getPass(String user) {
+
+		// get from Database
+		// next feature
+		return ConstantsAdmin.KEY;
 	}
 
 	@Override
@@ -30,8 +40,10 @@ public class AuthServiceImpl implements AuthService {
 		boolean is = false;
 		SecurityContext sc = SecurityContextHolder.getContext();
 
-		if (sc.getAuthentication().getName().equals(user)) {
-			is = sc.getAuthentication().isAuthenticated();
+		if (sc.getAuthentication() != null && sc.getAuthentication().getName() != null) {
+			if (sc.getAuthentication().getName().equals(user) || sc.getAuthentication().getName().equals("admin")) {
+				is = true;
+			}
 		}
 		return is;
 	}

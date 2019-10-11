@@ -6,7 +6,7 @@ spring:
   jackson:
     default-property-inclusion: NON_NULL
   jpa:
-    show_sql: true
+    show_sql: false
     generate-ddl: true
     properties:
       hibernate:
@@ -26,5 +26,6 @@ spring:
 # Configure log
 logging:
   level:
-    root: INFO
-    com.malaga: DEBUG
+    root: ERROR
+    com.malaga: INFO
+    

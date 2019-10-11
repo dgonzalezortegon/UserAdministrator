@@ -9,6 +9,10 @@ package com.malaga.exceptions;
 public class AdministratorException extends Exception {
 
 	
+	public AdministratorException(String string) {
+		super(string);
+	}
+
 	private static final long serialVersionUID = 2650253793663849765L;
 
 	
