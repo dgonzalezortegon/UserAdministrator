@@ -50,7 +50,7 @@ public class CommandControllerImpl {
 
 	}
 
-	public boolean login(String user, String pass) {
+	public boolean login(String user, String pass) throws AdministratorException {
 		log.debug("Login");
 		return authService.authenticated(user, pass);
 	}
@@ -85,6 +85,8 @@ public class CommandControllerImpl {
 	public UserDTO update(String user) throws AdministratorException {
 
 		UserDTO userDto = gson.fromJson(ValidatorUtils.parserStringToDTO(user), UserDTO.class);
+		
+		userDto.setUsername(user);
 
 		return userService.update(userDto);
 	}

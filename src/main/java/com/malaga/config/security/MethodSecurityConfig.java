@@ -18,7 +18,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 public class MethodSecurityConfig {
 
 	/**
-	 * In Order to have 2 Profiles (USER and ADMIN)
+	 * In Memory two users (provisioning) (USER and ADMIN)
 	 * 
 	 * Initialized 2 kind of users 
 	 * (this a temporal approach)
@@ -35,7 +35,9 @@ public class MethodSecurityConfig {
 	 */
 	@Autowired
 	public void initUsers(AuthenticationManagerBuilder auth) throws Exception {
+		
 		auth.inMemoryAuthentication().withUser("user").password("password").roles("USER").and().withUser("admin")
 				.password("password").roles("USER", "ADMIN");
+		
 	}
 }

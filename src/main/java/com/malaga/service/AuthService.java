@@ -1,5 +1,7 @@
 package com.malaga.service;
 
+import com.malaga.exceptions.AdministratorException;
+
 public interface AuthService {
 
 	/**
@@ -9,8 +11,9 @@ public interface AuthService {
 	 * @param user
 	 * @param pass
 	 * @return
+	 * @throws AdministratorException 
 	 */
-	boolean authenticated(String user, String pass);
+	boolean authenticated(String user, String pass) throws AdministratorException;
 
 	/**
 	 * Check if the User is authenticated

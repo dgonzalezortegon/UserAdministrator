@@ -31,8 +31,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO create(UserDTO user) throws AdministratorException {
-		if(user==null) {
-			 throw new  AdministratorException("User no well formed");
+		if (user == null) {
+			throw new AdministratorException("User no well formed");
 		}
 		return mapperUser.toDTO(userRepository.save(mapperUser.toModel(user)));
 	}
@@ -40,10 +40,18 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO update(UserDTO user) throws AdministratorException {
 		User u = userRepository.findByUsername(user.getUsername());
-		u.setEmail(user.getEmail());
-		u.setLastname(user.getLastname());
 
-		return mapperUser.toDTO(userRepository.save(u));
+		UserDTO userUpdated = null;
+
+		if (u != null) {
+			u.setEmail(user.getEmail());
+			u.setLastname(user.getLastname());
+			u.setPassword(user.getPassword());
+
+			userUpdated = mapperUser.toDTO(userRepository.save(u));
+		}
+
+		return userUpdated;
 	}
 
 	@Override
@@ -56,6 +64,11 @@ public class UserServiceImpl implements UserService {
 
 		userRepository.delete(userRepository.findOne(user.getId()));
 
+	}
+
+	@Override
+	public UserDTO existUsername(String idUser) throws AdministratorException {
+		return mapperUser.toDTO(userRepository.findByUsername(idUser));
 	}
 
 }

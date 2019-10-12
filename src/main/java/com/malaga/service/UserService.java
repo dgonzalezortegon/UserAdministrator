@@ -61,5 +61,15 @@ public interface UserService {
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void delete(UserDTO user) throws AdministratorException;
+	
+	
+	/**
+	 * Check the user without Authorizations
+	 * 
+	 * @param idUser
+	 * @return
+	 * @throws AdministratorException
+	 */
+	public UserDTO existUsername(String idUser) throws AdministratorException;
 
 }
