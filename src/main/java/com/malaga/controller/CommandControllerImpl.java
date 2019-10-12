@@ -85,7 +85,7 @@ public class CommandControllerImpl {
 	public UserDTO update(String user) throws AdministratorException {
 
 		UserDTO userDto = gson.fromJson(ValidatorUtils.parserStringToDTO(user), UserDTO.class);
-		
+
 		userDto.setUsername(user);
 
 		return userService.update(userDto);
@@ -115,9 +115,9 @@ public class CommandControllerImpl {
 	public void delete(String idUser) throws AdministratorException {
 
 		UserDTO user = userService.findByUsername(idUser);
-		
+
 		accountService.deleteAccount(user.getId());
-		
+
 		userService.delete(user);
 
 	}
@@ -136,6 +136,15 @@ public class CommandControllerImpl {
 	}
 
 	/**
+	 * return the current user
+	 * 
+	 * @return
+	 */
+	public String whoAmI() {
+		return authService.currentUser();
+	}
+
+	/**
 	 * Main method for the Console to execute the commands
 	 * 
 	 * @param args
@@ -147,9 +156,11 @@ public class CommandControllerImpl {
 
 		try {
 			switch (args[0]) {
+			case ConstantsAdmin.WHO:
+				result = whoAmI();
+				break;
 			case ConstantsAdmin.HELP:
 				result = ConstantsAdmin.FORMAT_HELP;
-
 				break;
 			case ConstantsAdmin.AUTH:
 				result = login(args[1], args[2]) + "";

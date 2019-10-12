@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import org.dozer.DozerBeanMapper;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootApplication
+@EnableAutoConfiguration
 @Configuration
 @EnableJpaRepositories(basePackages = { "com.malaga" })
 @ComponentScan(basePackages = { "com.malaga" })
@@ -28,8 +30,10 @@ public class AdministratorApplication {
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(AdministratorApplication.class, args);
 
+		// Get from the Spring Context, the controller
 		commands = context.getBean(CommandControllerImpl.class);
 
+		// run the main method
 		runConsole();
 	}
 
@@ -48,7 +52,7 @@ public class AdministratorApplication {
 				String args[] = command.split(" ");
 
 				if (isValid(args)) {
-										
+
 					if (commands.validateCommand(args)) {
 						log.info(commands.executeCommand(args));
 					}
@@ -74,9 +78,9 @@ public class AdministratorApplication {
 			valid = false;
 		}
 		if (args != null && args.length == 1) {
-			if(args[0].equals(System.lineSeparator()) || args[0].equals("")) {
-		
-			valid = false;
+			if (args[0].equals(System.lineSeparator()) || args[0].equals("")) {
+
+				valid = false;
 			}
 		}
 		return valid;

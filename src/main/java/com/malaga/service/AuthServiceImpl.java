@@ -181,6 +181,20 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
+	public String currentUser() {
+
+		String user = "none";
+		SecurityContext sc = SecurityContextHolder.getContext();
+
+		if (sc.getAuthentication() != null) {
+
+			user = sc.getAuthentication().getName();
+		}
+
+		return user;
+	}
+
+	@Override
 	public boolean checkRestrictions(String user) {
 		// TODO Pending
 		return false;

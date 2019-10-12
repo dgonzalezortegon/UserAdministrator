@@ -32,4 +32,10 @@ public interface AuthService {
 	 */
 	boolean checkRestrictions(String user);
 
+	/**
+	 * Return the current User 
+	 * @return
+	 */
+	String currentUser();
+
 }

@@ -13,6 +13,7 @@ public class ConstantsAdmin {
 	public static final String ALL_USER = "all";
 	public static final String CREATE_ACCOUNT = "newiban";
 	public static final String HELP = "help";
+	public static final String WHO = "whoami";
 
 	// FORMAT COMMANDS
 	public static final String FORMAT_CREATE_USER = "create {username:'userTest',password:'pass',lastname:'test',email:'test@mail.com'}\n";
@@ -28,8 +29,8 @@ public class ConstantsAdmin {
 	public static final String FORMAT_ALL_USERS = "all\n";
 
 	public static final String FORMAT_HELP = "\nCreate an User (username is case sensitive) --> " + FORMAT_CREATE_USER + "Update an user --> "
-			+ FORMAT_UPDATE_USER + "Delete an user" + FORMAT_DELETE_USER + "Get an User" + FORMAT_GET_USER
-			+ "All users -->" + FORMAT_ALL_USERS + "Create a new Account --> " + FORMAT_CREATE_ACCOUNT + "\n";
+			+ FORMAT_UPDATE_USER + "Delete an user --> " + FORMAT_DELETE_USER + "Get an User --> " + FORMAT_GET_USER
+			+ "All users --> " + FORMAT_ALL_USERS + "Create a new Account --> " + FORMAT_CREATE_ACCOUNT + "\n";
 
 	// MESSAGES
 	public static final String WELCOME = "Welcome to Users Administrator\n";
