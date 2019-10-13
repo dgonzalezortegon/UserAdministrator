@@ -49,7 +49,7 @@ public class AdministratorApplication {
 
 				command = scanner.nextLine();
 
-				String[] args = parseArgs(command);
+				String[] args = trimCommands(parseArgs(command));
 
 				if (isValid(args)) {
 
@@ -87,6 +87,12 @@ public class AdministratorApplication {
 
 	}
 
+	/**
+	 * parse the Arguments
+	 * 
+	 * @param arg
+	 * @return
+	 */
 	private static String[] parseArgs(String arg) {
 
 		String[] args = null;
@@ -103,10 +109,42 @@ public class AdministratorApplication {
 				newArgs = new String[args.length + 1];
 
 				for (int i = 0; i < args.length; i++) {
-					newArgs[i] = args[i];
+					newArgs[i] = args[i].trim();
 				}
-
 				newArgs[args.length] = argsJson[1];
+			}
+		}
+
+		return newArgs;
+
+	}
+
+	/**
+	 * trim the spaces
+	 * 
+	 * @param args
+	 * @return
+	 */
+	private static String[] trimCommands(String[] args) {
+
+		String[] newArgs = null;
+
+		if (args != null) {
+
+			int gaps = 0;
+			for (int i = 0; i < args.length; i++) {
+				if (args[i].equals("")) {
+					gaps++;
+				}
+			}
+			newArgs = new String[args.length - gaps];
+
+			int j = 0;
+			for (int i = 0; i < args.length; i++) {
+				if (!args[i].equals("")) {
+					newArgs[j] = args[i].trim();
+					++j;
+				}
 			}
 		}
 
