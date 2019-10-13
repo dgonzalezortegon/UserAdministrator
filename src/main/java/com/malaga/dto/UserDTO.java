@@ -24,8 +24,8 @@ public class UserDTO implements Serializable{
 
 	private String email;
 
-	private boolean enabled;
+	private Boolean enabled;
 	
-	private boolean admin;
+	private Boolean admin;
 
 }

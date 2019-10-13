@@ -59,9 +59,21 @@ public class UserServiceImpl implements UserService {
 		}
 
 		try {
-			u.setEmail(user.getEmail());
-			u.setLastname(user.getLastname());
-			u.setPassword(user.getPassword());
+			if (user.getEmail() != null) {
+				u.setEmail(user.getEmail());
+			}
+			if (user.getLastname() != null) {
+				u.setLastname(user.getLastname());
+			}
+			if (user.getPassword() != null) {
+				u.setPassword(user.getPassword());
+			}
+			if (user.getEnabled()!=null) {
+				u.setEnabled(user.getEnabled());
+			}
+			if (user.getAdmin()!=null) {
+				u.setAdmin(user.getAdmin());
+			}
 			userUpdated = mapperUser.toDTO(userRepository.save(u));
 
 		} catch (Exception e) {

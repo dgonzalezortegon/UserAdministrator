@@ -134,7 +134,7 @@ public class AuthServiceImpl implements AuthService {
 			}
 
 		} else {
-			isAdmin = user.isAdmin();
+			isAdmin = user.getAdmin();
 		}
 		return isAdmin;
 
