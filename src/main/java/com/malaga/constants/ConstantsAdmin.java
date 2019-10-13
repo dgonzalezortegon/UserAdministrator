@@ -16,11 +16,11 @@ public class ConstantsAdmin {
 	public static final String WHO = "whoami";
 
 	// FORMAT COMMANDS
-	public static final String FORMAT_CREATE_USER = "create {username:'userTest',password:'pass',lastname:'test',email:'test@mail.com'}\n";
+	public static final String FORMAT_CREATE_USER = "create -json {username:'userTest',password:'pass',lastname:'test',email:'test@mail.com'}\n";
 
 	public static final String FORMAT_CREATE_ACCOUNT = "newiban username iban\n";
 
-	public static final String FORMAT_UPDATE_USER = "update userTest {password:'hola',lastname:'test',email:'test@mail.com'}\n";
+	public static final String FORMAT_UPDATE_USER = "update userTest -json {password:'hola',lastname:'test',email:'test@mail.com'}\n";
 
 	public static final String FORMAT_DELETE_USER = "delete username\n";
 

@@ -49,7 +49,7 @@ public class AdministratorApplication {
 
 				command = scanner.nextLine();
 
-				String args[] = command.split(" ");
+				String[] args = parseArgs(command);
 
 				if (isValid(args)) {
 
@@ -84,6 +84,33 @@ public class AdministratorApplication {
 			}
 		}
 		return valid;
+
+	}
+
+	private static String[] parseArgs(String arg) {
+
+		String[] args = null;
+		String[] newArgs = null;
+		String[] argsJson = arg.split("-json");
+
+		// No contains the parameter -json
+		if (argsJson != null && argsJson.length == 1) {
+			newArgs = arg.split(" ");
+		} else {
+			if (argsJson != null) {
+				args = argsJson[0].split(" ");
+
+				newArgs = new String[args.length + 1];
+
+				for (int i = 0; i < args.length; i++) {
+					newArgs[i] = args[i];
+				}
+
+				newArgs[args.length] = argsJson[1];
+			}
+		}
+
+		return newArgs;
 
 	}
 

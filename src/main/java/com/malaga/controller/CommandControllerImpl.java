@@ -82,9 +82,9 @@ public class CommandControllerImpl {
 	 * @return
 	 * @throws AdministratorException
 	 */
-	public UserDTO update(String user) throws AdministratorException {
+	public UserDTO update(String user, String json) throws AdministratorException {
 
-		UserDTO userDto = gson.fromJson(ValidatorUtils.parserStringToDTO(user), UserDTO.class);
+		UserDTO userDto = gson.fromJson(ValidatorUtils.parserStringToDTO(json), UserDTO.class);
 
 		userDto.setUsername(user);
 
@@ -172,7 +172,7 @@ public class CommandControllerImpl {
 				result = create(args[1]).toString();
 				break;
 			case ConstantsAdmin.UPDATE_USER:
-				update(args[2]);
+				update(args[1], args[2]);
 				result = "updated";
 				break;
 			case ConstantsAdmin.GET_USER:
@@ -201,7 +201,10 @@ public class CommandControllerImpl {
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			result = "User No Authenticated";
 		} catch (AdministratorException e) {
-			log.error(e.getMessage());
+			result = e.getMessage();
+		} catch (Exception e) {
+			result = "Error " + args[0];
+
 		}
 
 		return result;

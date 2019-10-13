@@ -31,24 +31,41 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDTO create(UserDTO user) throws AdministratorException {
+
+		UserDTO newUser = null;
+
 		if (user == null) {
 			throw new AdministratorException("User no well formed");
 		}
-		return mapperUser.toDTO(userRepository.save(mapperUser.toModel(user)));
+
+		try {
+			newUser = mapperUser.toDTO(userRepository.save(mapperUser.toModel(user)));
+		} catch (Exception e) {
+			throw new AdministratorException("Error created: " + e.getMessage());
+		}
+
+		return newUser;
 	}
 
 	@Override
 	public UserDTO update(UserDTO user) throws AdministratorException {
-		User u = userRepository.findByUsername(user.getUsername());
 
 		UserDTO userUpdated = null;
 
-		if (u != null) {
+		User u = userRepository.findByUsername(user.getUsername());
+
+		if (u == null) {
+			throw new AdministratorException("Error updated : not exist " + user.getUsername());
+		}
+
+		try {
 			u.setEmail(user.getEmail());
 			u.setLastname(user.getLastname());
 			u.setPassword(user.getPassword());
-
 			userUpdated = mapperUser.toDTO(userRepository.save(u));
+
+		} catch (Exception e) {
+			throw new AdministratorException("Error updated: " + e.getMessage());
 		}
 
 		return userUpdated;
@@ -62,7 +79,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void delete(UserDTO user) throws AdministratorException {
 
-		userRepository.delete(userRepository.findOne(user.getId()));
+		try {
+			userRepository.delete(userRepository.findOne(user.getId()));
+		} catch (Exception e) {
+			throw new AdministratorException("Error deleted: " + e.getMessage());
+		}
 
 	}
 
