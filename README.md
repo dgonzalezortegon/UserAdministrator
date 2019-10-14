@@ -30,13 +30,21 @@ console Commands
 ---------------------
 
 help   --> the commands
+
 quit   --> exit 
+
 whoami --> the current user
-Create an User (username is case sensitive)   --> create {username:'userTest',password:'pass',lastname:'test',email:'test@mail.com'}
-Update an user       --> update userTest {password:'hola',lastname:'test',email:'test@mail.com'}
+
+Create an User (username is case sensitive)   --> create  -json {username:'userTest',password:'pass',lastname:'test',email:'test@mail.com'}
+
+Update an user       --> update userTest -json {password:'hola',lastname:'test',email:'test@mail.com'}
+
 Delete an user       -->  delete username
+
 Get an User          --> get username
+
 All users            --> all
+
 Create a new Account --> newiban username iban
 
 
