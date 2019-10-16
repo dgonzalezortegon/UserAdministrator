@@ -2,8 +2,6 @@ package com.malaga.dto;
 
 import java.io.Serializable;
 
-import com.malaga.entity.User;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +16,7 @@ public class AccountDTO implements Serializable {
 
 	private Long id;
 
-	private User user;
+	private UserDTO user;
 
 	private String iban;
 

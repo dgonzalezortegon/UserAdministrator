@@ -14,6 +14,7 @@ public class ConstantsAdmin {
 	public static final String CREATE_ACCOUNT = "newiban";
 	public static final String HELP = "help";
 	public static final String WHO = "whoami";
+	public static final String GET_ACCOUNT = "accounts";
 
 	// FORMAT COMMANDS
 	public static final String FORMAT_CREATE_USER = "create -json {username:'userTest',password:'pass',lastname:'test',email:'test@mail.com'}\n";
@@ -27,10 +28,13 @@ public class ConstantsAdmin {
 	public static final String FORMAT_GET_USER = "get username\n";
 
 	public static final String FORMAT_ALL_USERS = "all\n";
+	
+	public static final String FORMAT_GET_ACCOUNT = "accounts username\n";
 
 	public static final String FORMAT_HELP = "\nCreate an User (username is case sensitive) --> " + FORMAT_CREATE_USER + "Update an user --> "
 			+ FORMAT_UPDATE_USER + "Delete an user --> " + FORMAT_DELETE_USER + "Get an User --> " + FORMAT_GET_USER
-			+ "All users --> " + FORMAT_ALL_USERS + "Create a new Account --> " + FORMAT_CREATE_ACCOUNT + "\n";
+			+ "All users --> " + FORMAT_ALL_USERS + "Create a new Account --> " + FORMAT_CREATE_ACCOUNT + "\n"
+			+ "Get Accounts --> " + FORMAT_GET_ACCOUNT + "\n";
 
 	// MESSAGES
 	public static final String WELCOME = "Welcome to Users Administrator\n";
@@ -42,5 +46,7 @@ public class ConstantsAdmin {
 	// ROLES
 	public static final String ROLE_USER = "ROLE_USER";
 	public static final String ROLE_ADMIN = "ROLE_ADMIN";
+	
+	
 
 }

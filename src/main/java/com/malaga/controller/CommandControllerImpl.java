@@ -148,6 +148,16 @@ public class CommandControllerImpl {
 	}
 
 	/**
+	 * return the current user
+	 * 
+	 * @return
+	 * @throws AdministratorException
+	 */
+	public List<AccountDTO> getAccounts(String user) throws AdministratorException {
+		return accountService.findAccounts(user);
+	}
+
+	/**
 	 * Main method for the Console to execute the commands
 	 * 
 	 * @param args
@@ -193,6 +203,10 @@ public class CommandControllerImpl {
 			case ConstantsAdmin.CREATE_ACCOUNT:
 				createAccount(args[1], args[2]);
 				result = "IBAN created";
+				break;
+
+			case ConstantsAdmin.GET_ACCOUNT:
+				result = getAccounts(args[1]).toString();
 				break;
 			default:
 				break;
@@ -259,6 +273,12 @@ public class CommandControllerImpl {
 			case ConstantsAdmin.UPDATE_USER:
 				if (args.length != 3) {
 					log.error(ConstantsAdmin.FORMAT_UPDATE_USER);
+					result = false;
+				}
+				break;
+			case ConstantsAdmin.GET_ACCOUNT:
+				if (args.length != 2) {
+					log.error(ConstantsAdmin.FORMAT_GET_ACCOUNT);
 					result = false;
 				}
 				break;

@@ -55,7 +55,7 @@ public class User implements Serializable {
 	@Column(name = "admin", nullable = false)
 	private boolean admin;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Account> accountsUser;
 
 }
