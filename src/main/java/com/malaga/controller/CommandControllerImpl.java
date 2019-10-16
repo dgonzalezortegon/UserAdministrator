@@ -132,6 +132,9 @@ public class CommandControllerImpl {
 	 */
 	public AccountDTO createAccount(String user, String iban) throws AdministratorException {
 
+		if (!ValidatorUtils.validaCampo(ConstantsAdmin.FIELD_IBAN, iban)) {
+			throw new AdministratorException("IBAN no valid");
+		}
 		return accountService.createAccount(user, iban);
 	}
 
